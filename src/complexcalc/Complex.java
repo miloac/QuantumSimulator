@@ -38,7 +38,7 @@ public class Complex {
     public String toString(){
         String resp = Double.toString(realP);
         resp = resp + " ";
-        if(this.imaginP > 0){
+        if(this.imaginP >= 0){
             resp = resp + "+ ";
         }
         resp = resp + Double.toString(imaginP) + " i";

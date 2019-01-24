@@ -36,4 +36,7 @@ public class ComplexPolar {
         this.phase = phase;
     }
     
+    public String toString(){
+        return("ρ: " + this.magnitude + " θ: " + this.phase);
+    }
 }
