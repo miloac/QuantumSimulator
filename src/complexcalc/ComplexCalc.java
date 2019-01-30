@@ -71,4 +71,9 @@ public class ComplexCalc {
         return polar.getPhase();
     }
     
+    //TODO
+    public ComplexVector vectorSum(ComplexVector vector1, ComplexVector vector2){
+        return null;
+    }
+    
 }
