@@ -13,14 +13,14 @@ import java.util.ArrayList;
  */
 public class ComplexVector {
 
-    private ArrayList elementos;
+    private ArrayList<Complex> elementos;
     private int size;
     
     public ComplexVector(){
         this.size =0;
     }
     
-    public ArrayList getElementos() {
+    public ArrayList<Complex> getElementos() {
         return elementos;
     }
 
