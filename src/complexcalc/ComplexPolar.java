@@ -12,8 +12,8 @@ package complexcalc;
 public class ComplexPolar {
 
     
-    double magnitude;
-    double phase;
+    private double magnitude;
+    private double phase;
     
     public ComplexPolar(double mag, double ph){
         this.magnitude = mag;

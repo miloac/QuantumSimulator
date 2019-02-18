@@ -26,7 +26,7 @@ public class ComplexMatrix {
         return elementos;
     }
 
-    public int getColums() {
+    public int getColumns() {
         return columns;
     }
 

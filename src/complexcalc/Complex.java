@@ -11,8 +11,8 @@ package complexcalc;
  */
 public class Complex {
 
-    double realP;
-    double imaginP;
+    private double realP;
+    private double imaginP;
     
     public Complex(double real, double imag){
         this.realP = real;
