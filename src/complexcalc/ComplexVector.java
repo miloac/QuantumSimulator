@@ -18,6 +18,7 @@ public class ComplexVector {
     
     public ComplexVector(){
         this.size =0;
+        elementos = new ArrayList<Complex>();
     }
     
     public ArrayList<Complex> getElementos() {
@@ -32,7 +33,7 @@ public class ComplexVector {
     
     public void addElement(Complex num){
         this.elementos.add(num);
-        size++;
+        this.size= size + 1;
     }    
     
 }

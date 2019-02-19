@@ -50,13 +50,17 @@ import java.lang.Math.*;
     
      public static ComplexPolar cartesianToPolar(Complex num){
         double mag = modulus(num);
+        mag = Math.round(mag*100.0)/100.0;
         double phase = Math.atan2(num.getRealP(), num.getImaginP());
+        phase = Math.round(phase*100.0)/100.0;
         return new ComplexPolar(mag, phase);
     }
     
      public static Complex polarToCartesian(ComplexPolar polar){
         double img = polar.getMagnitude() * Math.cos(polar.getPhase());
+        img = Math.round(img*100.0)/100.0;
         double real = polar.getMagnitude() * Math.sin(polar.getPhase());
+        real = Math.round(real*100.0)/100.0;
         return new Complex(real,img);
     } 
     
@@ -131,13 +135,17 @@ import java.lang.Math.*;
      public static ComplexMatrix matrixMultiplication(ComplexMatrix m1, ComplexMatrix m2) throws Exception{
          ComplexMatrix res = new ComplexMatrix();
          if((m1.getColumns() == m2.getRows())){
-             for(int i =0; i<m2.getRows(); i++){
+             for(int k=0;  k<m1.getRows(); k++){
                  ComplexVector vector = new ComplexVector();
-                 for(int j =0 ; j<m1.getColumns();j++){
-                     vector.addElement(compProd(m1.getElementos().get(i).getElementos().get(j),m2.getElementos().get(j).getElementos().get(i)));
-                 }
-                 res.addElement(vector);
-             }
+                 for(int i =0; i<m2.getRows(); i++){
+                     Complex temp = new Complex(0,0);
+                    for(int j =0 ; j<m1.getColumns();j++){
+                        temp = compSum(temp,compProd(m1.getElementos().get(k).getElementos().get(j),m2.getElementos().get(j).getElementos().get(i)));
+                    }
+                    vector.addElement(temp);
+                }
+                res.addElement(vector);
+         }
          }
          else{
              throw new Exception("Cannot multiply these matrices");
@@ -210,11 +218,36 @@ import java.lang.Math.*;
              
      }
      
+     public static boolean polarEquals(ComplexPolar num1, ComplexPolar num2){
+         if(num1.getMagnitude() == num2.getMagnitude() && num1.getPhase() == num2.getPhase()){
+             return true;
+         }
+         else{
+             return false;
+         }
+             
+     }
+     
+     public static boolean vectorEquals(ComplexVector v1, ComplexVector v2) throws Exception{
+         boolean flag = true;
+         if(v1.getSize() == v2.getSize()){
+             for(int i=0; i<v1.getSize() && flag; i++){
+                 if(! (complexEquals(v1.getElementos().get(i), v2.getElementos().get(i)))){
+                     flag = false;
+                 }
+             }
+         }
+         else{
+             throw new Exception("Vectors dont match in size");
+         }
+         return flag;
+     }
+     
      public static boolean matrixEquals(ComplexMatrix m1, ComplexMatrix m2) throws Exception{
          boolean flag = true;
          if((m1.getColumns() == m2.getColumns()) && (m1.getRows() == m2.getRows())){
              for(int i =0; i<m1.getRows() && flag ; i++){
-                 for(int j =0; i<m2.getColumns() && flag; i++){
+                 for(int j =0; j<m2.getColumns() && flag; j++){
                      if(!complexEquals(m1.getElementos().get(i).getElementos().get(j),m2.getElementos().get(i).getElementos().get(j))){
                          flag= false;
                      }
@@ -230,7 +263,7 @@ import java.lang.Math.*;
      public static ComplexMatrix adjointMatrix(ComplexMatrix m) throws Exception{
          ComplexMatrix res1 = transpose(m);
          ComplexMatrix res2 = matrixConjugate(res1);
-         return res1;
+         return res2;
      }
      
      public static boolean isHermitan(ComplexMatrix m) throws Exception{
@@ -240,7 +273,7 @@ import java.lang.Math.*;
      
      public static boolean isUnitary(ComplexMatrix m) throws Exception{
          boolean flag = true;
-         if((m.getColumns() == m.getColumns())){
+         if((m.getColumns() == m.getRows())){
             ComplexMatrix adj = adjointMatrix(m);
             ComplexMatrix res = matrixMultiplication(m,adj);
             
@@ -255,5 +288,7 @@ import java.lang.Math.*;
          }
          return flag;
      }
+     
+     
     
 }

@@ -20,6 +20,7 @@ public class ComplexMatrix {
     public ComplexMatrix(){
         this.columns = 0;
         this.rows = 0;
+        elementos = new ArrayList<ComplexVector>();
     }
     
     public ArrayList<ComplexVector> getElementos() {
