@@ -24,7 +24,7 @@ import java.lang.Math.*;
     /**
      * Multiplies two complex numbers
      * @param num1 first number
-     * @param num2 second numer
+     * @param num2 second number
      * @return the result of the multiplication
      */
      public static Complex compProd(Complex num1, Complex num2){
@@ -38,7 +38,7 @@ import java.lang.Math.*;
      /**
       * Rests 2 comples numbers
       * @param num1 first number
-      * @param num2 second numer
+      * @param num2 second number
       * @return the rest of the numbers
       */
      public static Complex compRest(Complex num1, Complex num2){
@@ -47,7 +47,7 @@ import java.lang.Math.*;
     /**
      * Divides two complex numbers
      * @param num1 first number, the dividend
-     * @param num2 second numer, the divisor
+     * @param num2 second number, the divisor
      * @return 
      */
      public static Complex compDiv(Complex num1, Complex num2){
@@ -277,7 +277,7 @@ import java.lang.Math.*;
      /**
       * Finds the distance between two vectors
       * @param v1 first vector
-      * @param v2 second vectir
+      * @param v2 second vector
       * @return the complex distance between the vectors
       */
      public static Complex distance(ComplexVector v1, ComplexVector v2){
@@ -369,10 +369,10 @@ import java.lang.Math.*;
      }
      
      /**
-      * Determines wether two complex vectors are equal 
+      * Determines whether two complex vectors are equal 
       * @param v1 first vector
       * @param v2 second vector
-      * @return the boolean answer of the equalty
+      * @return the boolean answer of the equality
       * @throws Exception Vectors must have the same size
       */
      public static boolean vectorEquals(ComplexVector v1, ComplexVector v2) throws Exception{
@@ -391,10 +391,10 @@ import java.lang.Math.*;
      }
      
      /**
-      * Determines wether two complex matrices are equal 
+      * Determines whether two complex matrices are equal 
       * @param m1 first matrix
       * @param m2 second matrix
-      * @return the boolean answer of the equalty
+      * @return the boolean answer of the equality
       * @throws Exception Matrices should have the same size
       */
      public static boolean matrixEquals(ComplexMatrix m1, ComplexMatrix m2) throws Exception{
@@ -427,7 +427,7 @@ import java.lang.Math.*;
      }
      
      /**
-      * Returns wether or not a matrix is hermitan
+      * Returns whether or not a matrix is hermitan
       * @param m the matrix
       * @return the boolean answer telling if the matrix is hermitan
       * @throws Exception 
@@ -438,9 +438,9 @@ import java.lang.Math.*;
      }
      
      /**
-      * Determines wether or not a matrix is unitary
+      * Determines whether or not a matrix is unitary
       * @param m the matrix
-      * @return the boolea answer that tells if the matrix is unitary
+      * @return the boolean answer that tells if the matrix is unitary
       * @throws Exception the matrix must be square
       */
      public static boolean isUnitary(ComplexMatrix m) throws Exception{
@@ -461,6 +461,29 @@ import java.lang.Math.*;
          return flag;
      }
      
+     /**
+      * Finds the action between a matrix and a vector
+      * @param m the matrix
+      * @param v the vector
+      * @return The vector resulting on the action
+      * @throws Exception Matrix columns have to be the same size of the vector
+      */
+     public static ComplexVector action(ComplexMatrix m, ComplexVector v) throws Exception{
+         ComplexVector res = new ComplexVector();
+         if(m.getColumns() == v.getSize()){
+             for(int i =0; i<m.getRows(); i++){
+                     Complex temp = new Complex(0,0);
+                    for(int j =0 ; j<v.getSize();j++){
+                        temp = compSum(temp,compProd(m.getElementos().get(i).getElementos().get(j),v.getElementos().get(j)));
+                    }
+                    res.addElement(temp);
+                }
+         }
+         else{
+             throw new Exception ("Can't get the action when sizes dont match");
+         }
+         return res;
+     }
      
     
 }

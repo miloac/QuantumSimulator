@@ -513,7 +513,10 @@ public class ComplexTest {
             fail();
         }
     }
-    /**
+    
+    
+    
+    
     @Test
     public void unitaryTest(){
         boolean bool = false;
@@ -533,13 +536,69 @@ public class ComplexTest {
             matrix.addElement(v1);
             matrix.addElement(v2);
             bool = ComplexCalc.isUnitary(matrix);
-            org.junit.Assert.assertEquals(true,bool);
+            org.junit.Assert.assertEquals(false,bool);
         }
         catch(Exception e){
             fail();
         }
     }
-    **/
+    
+    @Test
+    public void actionTest(){
+        boolean bool = false;
+        Complex num1 = new Complex (3, 2);
+        Complex num2 = new Complex (0, 0);
+        Complex num3 = new Complex (5, -6);
+        Complex num4 = new Complex (1, 0);
+        Complex num5 = new Complex (4, 2);
+        Complex num6 = new Complex (0, 1);
+        Complex num7 = new Complex (4, -1);
+        Complex num8 = new Complex (0, 0);
+        Complex num9 = new Complex (4, 0);
+        ComplexVector vector = new ComplexVector();
+        vector.addElement(num1);
+        vector.addElement(num2);
+        vector.addElement(num3);
+        ComplexVector vector2 = new ComplexVector();
+        vector2.addElement(num4);
+        vector2.addElement(num5);
+        vector2.addElement(num6);
+        ComplexVector vector3 = new ComplexVector();
+        vector3.addElement(num7);
+        vector3.addElement(num8);
+        vector3.addElement(num9);
+        ComplexMatrix matrix1 = new ComplexMatrix();
+        
+        Complex num11 = new Complex (5, 0);
+        Complex num14 = new Complex (0, 0);
+        Complex num17 = new Complex (7, -4);
+        ComplexVector vector11 = new ComplexVector();
+        vector11.addElement(num11);
+        vector11.addElement(num14);
+        vector11.addElement(num17);
+        
+        Complex r1 = new Complex (26, -52);
+        Complex r2 = new Complex (9, 7);
+        Complex r3 = new Complex (48, -21);
+        ComplexVector vectorres = new ComplexVector();
+        vectorres.addElement(r1);
+        vectorres.addElement(r2);
+        vectorres.addElement(r3);
+        try{
+            matrix1.addElement(vector);
+            matrix1.addElement(vector2);
+            matrix1.addElement(vector3);
+            ComplexVector act = ComplexCalc.action(matrix1, vector11);
+            bool = ComplexCalc.vectorEquals(act, vectorres);
+            org.junit.Assert.assertEquals(true,bool);
+            
+        }
+        catch(Exception e){
+            fail();
+        }
+
+    }
+    
     
     
     
