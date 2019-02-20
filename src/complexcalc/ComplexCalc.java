@@ -11,11 +11,22 @@ import java.lang.Math.*;
  * @author 2116177
  */
  public class ComplexCalc {
-
+    
+     /** Sums 2 complex numbers
+      * @param num1 The first number
+      * @param num2 the second number
+      * @return the sum of the two numbers
+      **/
     public static Complex compSum(Complex num1, Complex num2){
         return new Complex(num1.getRealP()+num2.getRealP(), num1.getImaginP() + num2.getImaginP());
     }
     
+    /**
+     * Multiplies two complex numbers
+     * @param num1 first number
+     * @param num2 second numer
+     * @return the result of the multiplication
+     */
      public static Complex compProd(Complex num1, Complex num2){
         double a1 = num1.getRealP();
         double b1 = num1.getImaginP();
@@ -24,10 +35,21 @@ import java.lang.Math.*;
         return new Complex((a1*a2) - (b1*b2), (a1*b2) + (a2*b1));
     }
     
+     /**
+      * Rests 2 comples numbers
+      * @param num1 first number
+      * @param num2 second numer
+      * @return the rest of the numbers
+      */
      public static Complex compRest(Complex num1, Complex num2){
         return new Complex(num1.getRealP()-num2.getRealP(), num1.getImaginP() - num2.getImaginP());
     }
-    
+    /**
+     * Divides two complex numbers
+     * @param num1 first number, the dividend
+     * @param num2 second numer, the divisor
+     * @return 
+     */
      public static Complex compDiv(Complex num1, Complex num2){
         double a1 = num1.getRealP();
         double b1 = num1.getImaginP();
@@ -39,15 +61,30 @@ import java.lang.Math.*;
         return new Complex(divid1 / divisor , divid2/divisor);
     }
     
+     /**
+      * Find the modulus of a complex number
+      * @param num the number
+      * @return the double value of the modulus
+      */
      public static double modulus(Complex num){
         double res = Math.sqrt( (num.getRealP() * num.getRealP()) + (num.getImaginP() * num.getImaginP()) );
         return res;
     }
     
+     /**
+      * Find the conjugate of a complex number
+      * @param num the number
+      * @return the conjugate complex number
+      */
      public static Complex conjugate(Complex num){
         return new Complex(num.getRealP(), -(num.getImaginP()));
     }
     
+     /**
+      * Transform a complex number from cartesian to polar coordinates
+      * @param num the number
+      * @return the complex number in polar coordinates
+      */
      public static ComplexPolar cartesianToPolar(Complex num){
         double mag = modulus(num);
         mag = Math.round(mag*100.0)/100.0;
@@ -56,6 +93,11 @@ import java.lang.Math.*;
         return new ComplexPolar(mag, phase);
     }
     
+     /**
+      * transforms a polar complex number to cartesian form
+      * @param polar the number
+      * @return the cartesian number
+      */
      public static Complex polarToCartesian(ComplexPolar polar){
         double img = polar.getMagnitude() * Math.cos(polar.getPhase());
         img = Math.round(img*100.0)/100.0;
@@ -64,13 +106,22 @@ import java.lang.Math.*;
         return new Complex(real,img);
     } 
     
-    
+    /**
+     * Finds the phase of a cartesian complex number
+     * @param num the number
+     * @return the angle of the number
+     */
      public static double getPolarPhase(Complex num){
         ComplexPolar polar =(cartesianToPolar(num));
         return polar.getPhase();
     }
     
-    
+    /**
+     * Sums two complex vectors, the vector should have the same size
+     * @param vector1 first victor
+     * @param vector2 second vector
+     * @return the sum of the two vectors
+     */
      public static ComplexVector vectorSum(ComplexVector vector1, ComplexVector vector2){
         ComplexVector res = new ComplexVector();
         for(int i=0; i <vector1.getSize(); i++){
@@ -79,6 +130,12 @@ import java.lang.Math.*;
         return res;
     }
      
+     /**
+     * Rests two complex vectors, the vector should have the same size
+     * @param vector1 first victor
+     * @param vector2 second vector
+     * @return the rest of the two vectors
+     */
      public static ComplexVector vectorRest(ComplexVector vector1, ComplexVector vector2){
         ComplexVector res = new ComplexVector();
         for(int i=0; i <vector1.getSize(); i++){
@@ -87,6 +144,11 @@ import java.lang.Math.*;
         return res;
     }
     
+     /**
+      * Finds the inverse of a complex vector
+      * @param v the vector
+      * @return the inverse vector
+      */
      public static ComplexVector vectorInverse(ComplexVector v){
         ComplexVector res = new ComplexVector();
         for(int i=0; i <v.getSize(); i++){
@@ -95,6 +157,12 @@ import java.lang.Math.*;
         return res;
     }
     
+     /**
+      * Multiplies a complex vector by a complex scalar
+      * @param v the vector
+      * @param num the scalar
+      * @return the multiplied vector
+      */
      public static ComplexVector vectorScalarMultiplication(ComplexVector v, Complex num){
         ComplexVector res = new ComplexVector();
         for(int i=0; i <v.getSize(); i++){
@@ -103,6 +171,13 @@ import java.lang.Math.*;
         return res;
     }
      
+     /**
+      * Sums 2 complex matrices, they should have the same size
+      * @param m1 first matrix
+      * @param m2 second matrix
+      * @return The sum of the matrices
+      * @throws Exception Matrices should have the same size
+      */
      public static ComplexMatrix matrixSum(ComplexMatrix m1, ComplexMatrix m2) throws Exception{
          ComplexMatrix res = new ComplexMatrix();
          if((m1.getColumns() == m2.getColumns()) && (m1.getRows() == m2.getRows())){
@@ -116,6 +191,12 @@ import java.lang.Math.*;
          return res;
      }
      
+     /**
+      * Find the inverse of a matrix
+      * @param m the matrix
+      * @return the inverse matrix
+      * @throws Exception 
+      */
      public static ComplexMatrix matrixInverse(ComplexMatrix m) throws Exception{
          ComplexMatrix res = new ComplexMatrix();
          for(int i =0; i<m.getRows(); i++){
@@ -124,6 +205,13 @@ import java.lang.Math.*;
          return res;
      }
      
+     /**
+      * Multiplies a matrix by a scalar comples number
+      * @param m the matrix
+      * @param num the number
+      * @return the multiplied matrix
+      * @throws Exception 
+      */
      public static ComplexMatrix matrixScalarMultiplication(ComplexMatrix m, Complex num) throws Exception{
          ComplexMatrix res = new ComplexMatrix();
          for(int i =0; i<m.getRows(); i++){
@@ -132,6 +220,13 @@ import java.lang.Math.*;
          return res;
      }
      
+     /**
+      * Multiplies two matrices
+      * @param m1 first matrix
+      * @param m2 second matrix
+      * @return the multiplied matrix
+      * @throws Exception Matrix 1 and matrix 2 must have the same number of columns and rows respectively
+      */
      public static ComplexMatrix matrixMultiplication(ComplexMatrix m1, ComplexMatrix m2) throws Exception{
          ComplexMatrix res = new ComplexMatrix();
          if((m1.getColumns() == m2.getRows())){
@@ -153,7 +248,12 @@ import java.lang.Math.*;
          return res;
      }
      
-     
+     /**
+      * Finds the inner product of two vectors
+      * @param v1 first vector
+      * @param v2 second vector
+      * @return the complex inner product
+      */
      public static Complex innerProduct(ComplexVector v1, ComplexVector v2){
          Complex res = new Complex(0,0);
          for(int i=0; i<v1.getSize(); i++){
@@ -163,12 +263,23 @@ import java.lang.Math.*;
         return res;
      }
      
+     /**
+      * Finds the norm of a vector
+      * @param v the vector
+      * @return The norm of the vector
+      */
      public static Complex norm(ComplexVector v){
          Complex inn = innerProduct(v,v);
          Complex res = new Complex(Math.sqrt( inn.getRealP()),Math.sqrt( inn.getImaginP()));
          return res;
      }
      
+     /**
+      * Finds the distance between two vectors
+      * @param v1 first vector
+      * @param v2 second vectir
+      * @return the complex distance between the vectors
+      */
      public static Complex distance(ComplexVector v1, ComplexVector v2){
          ComplexVector v3 = vectorRest(v1,v2);
          Complex inn = innerProduct(v3,v3);
@@ -177,7 +288,11 @@ import java.lang.Math.*;
      }
      
      
-     
+     /**
+      * Finds the conjugate of a vector
+      * @param v the vector
+      * @return the conjugate
+      */
      public static ComplexVector vectorConjugate(ComplexVector v){
          ComplexVector res = new ComplexVector();
          for(int i =0; i<v.getSize(); i++){
@@ -186,6 +301,12 @@ import java.lang.Math.*;
          return res;
      }
      
+     /**
+      * Finds the conjugate of a matrix
+      * @param m the matrix
+      * @return the conjugate
+      * @throws Exception 
+      */
      public static ComplexMatrix matrixConjugate(ComplexMatrix m) throws Exception{
          ComplexMatrix res = new ComplexMatrix();
          for(int i =0; i<m.getRows(); i++){
@@ -195,6 +316,12 @@ import java.lang.Math.*;
          return res;
      }
      
+     /**
+      * Finds the transpose of a matrix
+      * @param m the matrix
+      * @return the transpose matrix
+      * @throws Exception 
+      */
      public static ComplexMatrix transpose(ComplexMatrix m) throws Exception{
          ComplexMatrix res = new ComplexMatrix();
          for(int i =0; i<m.getColumns(); i++){
@@ -208,6 +335,13 @@ import java.lang.Math.*;
          return res;
      }
      
+     /**
+      * Determines wether two complex numbers are equal 
+      * @param num1 first number
+      * @param num2 second number
+      * @return the boolean answer of the equalty
+      */
+     
      public static boolean complexEquals(Complex num1, Complex num2){
          if(num1.getRealP() == num2.getRealP() && num1.getImaginP() == num2.getImaginP()){
              return true;
@@ -218,6 +352,12 @@ import java.lang.Math.*;
              
      }
      
+     /**
+      * Determines wether two complex polar numbers are equal 
+      * @param num1 first number
+      * @param num2 second number
+      * @return the boolean answer of the equalty
+      */
      public static boolean polarEquals(ComplexPolar num1, ComplexPolar num2){
          if(num1.getMagnitude() == num2.getMagnitude() && num1.getPhase() == num2.getPhase()){
              return true;
@@ -228,6 +368,13 @@ import java.lang.Math.*;
              
      }
      
+     /**
+      * Determines wether two complex vectors are equal 
+      * @param v1 first vector
+      * @param v2 second vector
+      * @return the boolean answer of the equalty
+      * @throws Exception Vectors must have the same size
+      */
      public static boolean vectorEquals(ComplexVector v1, ComplexVector v2) throws Exception{
          boolean flag = true;
          if(v1.getSize() == v2.getSize()){
@@ -243,6 +390,13 @@ import java.lang.Math.*;
          return flag;
      }
      
+     /**
+      * Determines wether two complex matrices are equal 
+      * @param m1 first matrix
+      * @param m2 second matrix
+      * @return the boolean answer of the equalty
+      * @throws Exception Matrices should have the same size
+      */
      public static boolean matrixEquals(ComplexMatrix m1, ComplexMatrix m2) throws Exception{
          boolean flag = true;
          if((m1.getColumns() == m2.getColumns()) && (m1.getRows() == m2.getRows())){
@@ -260,17 +414,35 @@ import java.lang.Math.*;
          return flag;
      }
      
+     /**
+      * Finds the adjoint of a matrix
+      * @param m the matrix
+      * @return the adjoint matrix
+      * @throws Exception 
+      */
      public static ComplexMatrix adjointMatrix(ComplexMatrix m) throws Exception{
          ComplexMatrix res1 = transpose(m);
          ComplexMatrix res2 = matrixConjugate(res1);
          return res2;
      }
      
+     /**
+      * Returns wether or not a matrix is hermitan
+      * @param m the matrix
+      * @return the boolean answer telling if the matrix is hermitan
+      * @throws Exception 
+      */
      public static boolean isHermitan(ComplexMatrix m) throws Exception{
          ComplexMatrix res = adjointMatrix(m);
          return matrixEquals(m,res);
      }
      
+     /**
+      * Determines wether or not a matrix is unitary
+      * @param m the matrix
+      * @return the boolea answer that tells if the matrix is unitary
+      * @throws Exception the matrix must be square
+      */
      public static boolean isUnitary(ComplexMatrix m) throws Exception{
          boolean flag = true;
          if((m.getColumns() == m.getRows())){
