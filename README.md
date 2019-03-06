@@ -1,21 +1,9 @@
 # Complex Number Calculator
 ## Juan Camilo Mantilla
-This Java Library implements complex numbers and a variety of functions that apply to them, such as:
+This Java Library implements the complex number calculator to make simulations on complex numer experiments, such as:
 
-* Sum
-* Rest
-* Product
-* Division
-* Modulus
-* Conjugate
-* Cartesian to Polar
-* Polar to Cartesian
-* Polar phase
-* Sum of a vector and Matrix
-* Inverse of a vector and Matrix
-* Scalar multiplication of a vector and matrix
-* Matrix multiplication
-* Inner Product of two vectors
-* Norm of a vector
-* Distance between two vectors
-* Hermitan and unitary determination
+* Multi Slit Experiment
+* Marble Experiment
+
+To run the simulations you only need to clone or download the repository and import the QuantumSimulator class onto your program, you can invoke the static methods for their use.
+The library runs on base Java so it doesn't require any other components.
