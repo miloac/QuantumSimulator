@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class QuantumSimulator {
     
     /**
-     * Simulates the marble excercisa with complex numbers
+     * Simulates the marble exercise with complex numbers
      * @param state The initial state vector of the system
      * @param adjacency the adjacency matrix of the system
      * @param clicks Number of clicks in time the system will move
@@ -68,8 +68,6 @@ public class QuantumSimulator {
            }
        }
        
-       for(int i=0; i<probabilities.size();i++){
-       }
        
        
        //Matrix is initialized with 0 for all values
@@ -156,4 +154,87 @@ public class QuantumSimulator {
         return res; 
     }
     
+    
+    public static ComplexVector quantumSlit(int slits, int targets, ComplexVector probabilities) throws Exception{
+        
+        
+       if(probabilities.getSize() != (slits*targets) ){
+           throw new Exception("Number of targets doesn't match");
+       }
+       
+       
+       ComplexVector probs = new ComplexVector();
+       ComplexVector repeat = new ComplexVector();
+       int cont=0;
+       for(int i=0; i<probabilities.getSize(); i++){
+           if(cont < targets){
+               probs.addElement(probabilities.getElementos().get(i));
+               cont++;
+           }
+           else{
+               cont=1;
+               repeat.addElement(probabilities.getElementos().get(i));
+           }
+       }
+       
+       
+       
+       //Matrix is initialized with 0 for all values
+       ComplexMatrix matrix = new ComplexMatrix();
+       int sizeM = (targets) + (targets-1) * (slits-1) + slits +1;
+       for(int i=0; i<sizeM; i++){
+            ComplexVector temp = new ComplexVector();
+            for(int j=0; j<sizeM; j++){
+                temp.addElement(new Complex(0.0,0.0));
+            }
+            matrix.addElement(temp);
+       }
+       
+       //Initializes de probabilities of each slit from the base node
+       for(int i=1; i<slits+1; i++){
+           matrix.getElementos().get(i).getElementos().set(0, new Complex(1.0/Math.sqrt(slits),0));
+       }
+       
+       //Fills the remaining rows with their probability values going form each slit to
+       //each target, each target has value 1 going to itself.
+       int currentSlit = 1;
+       int currentCount = 0;
+       for(int i=slits+1; i<sizeM; i++){
+           matrix.getElementos().get(i).getElementos().set(i, new Complex(1.0,0));
+           if(currentCount<targets-1){
+                matrix.getElementos().get(i).getElementos().set(currentSlit, probs.getElementos().get(i-(slits+1)));
+                currentCount++;
+           }
+           else{
+               if(currentSlit < slits){
+                   matrix.getElementos().get(i).getElementos().set(currentSlit, probs.getElementos().get(i-(slits+1)));
+                   currentCount=1;
+                   currentSlit++;
+                   matrix.getElementos().get(i).getElementos().set(currentSlit, repeat.getElementos().remove(0));
+               }
+               else{
+                   matrix.getElementos().get(i).getElementos().set(currentSlit, probs.getElementos().get(i-(slits+1)));
+               }
+           }
+           
+       }
+       
+       for(int i=0; i<sizeM;i++){
+           for(int j=0; j<sizeM; j++){
+              // System.out.println(matrix.get(i).get(j));
+           }
+       }
+       
+       //The matrix gets multiplied by itself and then by the vector to find the final state
+       ComplexMatrix res = ComplexCalc.matrixMultiplication(matrix, matrix);
+       
+       ComplexVector vector = new ComplexVector();
+       for(int i=0; i< sizeM; i++){
+           vector.addElement(res.getElementos().get(i).getElementos().get(0));
+           //System.out.println(res.get(i).get(0));
+       }
+       
+       return vector;
+       
+    }
 }

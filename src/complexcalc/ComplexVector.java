@@ -27,6 +27,7 @@ public class ComplexVector {
 
 
     public int getSize() {
+        this.size = elementos.size();
         return size;
     }
 
