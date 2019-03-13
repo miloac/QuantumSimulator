@@ -238,6 +238,12 @@ public class QuantumSimulator {
        
     }
     
+    /**
+     * Calculates the probability of a particle being on a specific point of the ket
+     * @param v The ket vector of complex numbers
+     * @param point The index of the desired point in the ket, starts on 0
+     * @return The probability of the particle being on the ket point
+     */
     public static double probabilityInKetPoint(ComplexVector v, int point){
         double norm = ComplexCalc.vectorNorm(v);
         double mod = ComplexCalc.modulus(v.getElementos().get(point));
@@ -245,6 +251,12 @@ public class QuantumSimulator {
         return res;
     }
     
+    /**
+     * Calculates the amplitude of a transition between two state vectors
+     * @param v1 First vector
+     * @param v2 Second vector
+     * @return The amplitude of the transition
+     */
     public static Complex transitionAmplitude(ComplexVector v1, ComplexVector v2){
         Complex inProd = ComplexCalc.innerProduct(v1, v2);
         double mod1 = ComplexCalc.vectorNorm(v1);

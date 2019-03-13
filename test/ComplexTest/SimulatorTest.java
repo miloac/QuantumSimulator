@@ -11,7 +11,6 @@ package ComplexTest;
  */
 
 import complexcalc.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -102,6 +101,40 @@ public class SimulatorTest {
         catch(Exception e){
             fail();
         }
+    }
+    
+    @Test
+    public void probPointTest(){
+        Complex n1 = new Complex (-3,-1);
+        Complex n2 = new Complex (0,-2);
+        Complex n3 = new Complex (0,1);
+        Complex n4 = new Complex (2,0);
+        ComplexVector v = new ComplexVector();
+        v.addElement(n1);
+        v.addElement(n2);
+        v.addElement(n3);
+        v.addElement(n4);
+        double res = QuantumSimulator.probabilityInKetPoint(v, 2);
+        double expected = 0.052624;
+        org.junit.Assert.assertEquals(expected, res,0.0005);
+    }
+    
+    @Test
+    public void amplitudeTest(){
+        boolean bool= false;
+        Complex n1 = new Complex (0,-1);
+        Complex n2 = new Complex (1,0);
+        Complex n3 = new Complex (0,-1);
+        ComplexVector v1= new ComplexVector();
+        ComplexVector v2= new ComplexVector();
+        v1.addElement(n1);
+        v1.addElement(n2);
+        v2.addElement(n2);
+        v2.addElement(n3);
+        Complex res = QuantumSimulator.transitionAmplitude(v1, v2);
+        bool = ComplexCalc.complexEquals(res, n3);
+        //org.junit.Assert.assertEquals(true, bool);
+        
     }
     
 }
