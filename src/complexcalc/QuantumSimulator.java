@@ -237,4 +237,20 @@ public class QuantumSimulator {
        return vector;
        
     }
+    
+    public static double probabilityInKetPoint(ComplexVector v, int point){
+        double norm = ComplexCalc.vectorNorm(v);
+        double mod = ComplexCalc.modulus(v.getElementos().get(point));
+        double res = (mod*mod)/(norm*norm);
+        return res;
+    }
+    
+    public static Complex transitionAmplitude(ComplexVector v1, ComplexVector v2){
+        Complex inProd = ComplexCalc.innerProduct(v1, v2);
+        double mod1 = ComplexCalc.vectorNorm(v1);
+        double mod2 = ComplexCalc.vectorNorm(v2);
+        double divisor = mod1*mod2;
+        Complex res = new Complex(inProd.getRealP()/divisor, inProd.getImaginP()/divisor);
+        return res;
+    }
 }

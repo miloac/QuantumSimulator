@@ -274,6 +274,15 @@ import java.lang.Math.*;
          return res;
      }
      
+     public static double vectorNorm(ComplexVector v){
+         double res =0;
+         for(int i =0; i< v.getSize(); i++){
+             res = res + (v.getElementos().get(i).getRealP() * v.getElementos().get(i).getRealP()) + v.getElementos().get(i).getImaginP() * v.getElementos().get(i).getImaginP();
+         }
+         double sqr = Math.sqrt(res);
+         return sqr;
+     }
+     
      /**
       * Finds the distance between two vectors
       * @param v1 first vector
