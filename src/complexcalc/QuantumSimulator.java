@@ -265,4 +265,21 @@ public class QuantumSimulator {
         Complex res = new Complex(inProd.getRealP()/divisor, inProd.getImaginP()/divisor);
         return res;
     }
+    
+    /**
+    public static double meanValue(ComplexMatrix m, ComplexVector ket) throws Exception{
+        double res =0;
+        if(m.getColumns() != m.getRows() || ket.getSize() != m.getRows()){
+            throw new Exception("Not a square matrix or the ket size doesn't match");
+        }
+        else{
+            if(!ComplexCalc.isHermitan(m)){
+                throw new Exception("The matrix isn't hermitan");
+            }
+            else{
+                ComplexVector iP= ComplexCalc.action(m, ket);
+                Complex mult = ComplexCalc.innerProduct(ket, iP);
+            }
+        }
+    }**/
 }
