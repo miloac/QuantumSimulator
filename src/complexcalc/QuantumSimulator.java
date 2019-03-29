@@ -267,8 +267,14 @@ public class QuantumSimulator {
     }
     
     /**
-    public static double meanValue(ComplexMatrix m, ComplexVector ket) throws Exception{
-        double res =0;
+     * Calculates the average value from a ket vector and an observable matrix
+     * @param m The square matrix
+     * @param ket The state vector
+     * @return The complex mean value
+     * @throws Exception Matrix must be square and the ket must have an appropiate size
+     */
+    public static Complex meanValue(ComplexMatrix m, ComplexVector ket) throws Exception{
+        Complex res;
         if(m.getColumns() != m.getRows() || ket.getSize() != m.getRows()){
             throw new Exception("Not a square matrix or the ket size doesn't match");
         }
@@ -277,9 +283,24 @@ public class QuantumSimulator {
                 throw new Exception("The matrix isn't hermitan");
             }
             else{
-                ComplexVector iP= ComplexCalc.action(m, ket);
-                Complex mult = ComplexCalc.innerProduct(ket, iP);
+                ComplexVector iP= ComplexCalc.vectorConjugate(ComplexCalc.action(m, ket));
+                res = ComplexCalc.innerProduct(ket, iP);
             }
         }
-    }**/
+        return res;
+    }
+    
+    public static Complex variance(ComplexMatrix m, ComplexVector ket) throws Exception{
+        Complex avg= QuantumSimulator.meanValue(m, ket);
+        for(int i=0; i<m.getColumns();i++){
+            m.getElementos().get(i).getElementos().set(i, ComplexCalc.compRest(m.getElementos().get(i).getElementos().get(i), avg));
+        }
+        ComplexMatrix square = ComplexCalc.matrixMultiplication(m, m);
+        Complex res = new Complex(0,0);
+        for(int i=0; i<m.getColumns();i++){
+            res = ComplexCalc.compSum(res , ComplexCalc.compProd(m.getElementos().get(i).getElementos().get(i),ComplexCalc.compProd(ket.getElementos().get(i), ket.getElementos().get(i))));
+        }
+        return res;
+        
+    }
 }
