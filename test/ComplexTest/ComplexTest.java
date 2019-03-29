@@ -639,6 +639,45 @@ public class ComplexTest {
 
     }
     
+    @Test
+    public void varianceTest(){
+        boolean bool = false;
+        Complex num1 = new Complex (0.70710678118, 0);
+        Complex num2 = new Complex (0, 0.70710678118);
+        Complex num3 = new Complex (1, 0);
+        Complex num4 = new Complex (0, -1);
+        Complex num5 = new Complex (0, 1);
+        Complex num6 = new Complex(2,0);
+        ComplexVector vector = new ComplexVector();
+        vector.addElement(num1);
+        vector.addElement(num2);
+        ComplexVector vector2 = new ComplexVector();
+        vector2.addElement(num3);
+        vector2.addElement(num4);
+        ComplexVector vector3 = new ComplexVector();
+        vector3.addElement(num5);
+        vector3.addElement(num6);
+        ComplexMatrix matrix1 = new ComplexMatrix();
+        
+        
+        try{
+            matrix1.addElement(vector2);
+            matrix1.addElement(vector3);
+            Complex actual = QuantumSimulator.variance(matrix1, vector);
+            Complex expected = new Complex(0.2499999999953702,0);
+            bool = ComplexCalc.complexEquals(actual,expected);
+            org.junit.Assert.assertEquals(true,bool);
+            
+
+            
+            
+        }
+        catch(Exception e){
+            fail();
+        }
+
+    }
+    
     
     
 }

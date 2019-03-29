@@ -297,9 +297,11 @@ public class QuantumSimulator {
         }
         ComplexMatrix square = ComplexCalc.matrixMultiplication(m, m);
         Complex res = new Complex(0,0);
-        for(int i=0; i<m.getColumns();i++){
+        ComplexVector v1= ComplexCalc.action(square, ket);
+        res = ComplexCalc.innerProduct(v1, ComplexCalc.vectorConjugate(ket));
+        /**for(int i=0; i<m.getColumns();i++){
             res = ComplexCalc.compSum(res , ComplexCalc.compProd(m.getElementos().get(i).getElementos().get(i),ComplexCalc.compProd(ket.getElementos().get(i), ket.getElementos().get(i))));
-        }
+        }**/
         return res;
         
     }
