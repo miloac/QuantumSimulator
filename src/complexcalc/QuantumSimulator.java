@@ -290,6 +290,14 @@ public class QuantumSimulator {
         return res;
     }
     
+    /**
+     * Calculates the variance of a system
+     * @param m The square matrix
+     * @param ket The state vector
+     * @return The complex value of the variance 
+     * @throws Exception Matrix must be square and the ket must have an appropiate size
+     */
+    
     public static Complex variance(ComplexMatrix m, ComplexVector ket) throws Exception{
         Complex avg= QuantumSimulator.meanValue(m, ket);
         for(int i=0; i<m.getColumns();i++){
@@ -299,10 +307,22 @@ public class QuantumSimulator {
         Complex res = new Complex(0,0);
         ComplexVector v1= ComplexCalc.action(square, ket);
         res = ComplexCalc.innerProduct(v1, ComplexCalc.vectorConjugate(ket));
-        /**for(int i=0; i<m.getColumns();i++){
-            res = ComplexCalc.compSum(res , ComplexCalc.compProd(m.getElementos().get(i).getElementos().get(i),ComplexCalc.compProd(ket.getElementos().get(i), ket.getElementos().get(i))));
-        }**/
         return res;
         
+    }
+    
+    /**
+     * Calculates the dynamics of a system with a ket vector and multiple observables
+     * @param am The arraylist of matrices
+     * @param ket The ket vector
+     * @return The state vector after the dynamics of the system
+     * @throws Exception 
+     */
+    public static ComplexVector dynamics(ArrayList<ComplexMatrix> am, ComplexVector ket) throws Exception{
+        ComplexVector res = ket;
+        for(int i=0; i<am.size(); i++){
+            res= ComplexCalc.action(am.get(i), res);
+        }
+        return res;
     }
 }

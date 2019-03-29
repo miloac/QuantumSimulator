@@ -137,4 +137,126 @@ public class SimulatorTest {
         
     }
     
+    @Test
+    public void meanValueTest(){
+        boolean bool = false;
+        Complex num1 = new Complex (0.70710678118, 0);
+        Complex num2 = new Complex (0, 0.70710678118);
+        Complex num3 = new Complex (1, 0);
+        Complex num4 = new Complex (0, -1);
+        Complex num5 = new Complex (0, 1);
+        Complex num6 = new Complex(2,0);
+        ComplexVector vector = new ComplexVector();
+        vector.addElement(num1);
+        vector.addElement(num2);
+        ComplexVector vector2 = new ComplexVector();
+        vector2.addElement(num3);
+        vector2.addElement(num4);
+        ComplexVector vector3 = new ComplexVector();
+        vector3.addElement(num5);
+        vector3.addElement(num6);
+        ComplexMatrix matrix1 = new ComplexMatrix();
+        
+        
+        try{
+            matrix1.addElement(vector2);
+            matrix1.addElement(vector3);
+            Complex actual = QuantumSimulator.meanValue(matrix1, vector);
+            Complex aaa = QuantumSimulator.variance(matrix1, vector);
+            Complex expected = new Complex(2.499999999953702,0);
+            bool = ComplexCalc.complexEquals(actual,expected);
+            org.junit.Assert.assertEquals(true,bool);
+            
+
+            
+            
+        }
+        catch(Exception e){
+            fail();
+        }
+
+    }
+    
+    @Test
+    public void varianceTest(){
+        boolean bool = false;
+        Complex num1 = new Complex (0.70710678118, 0);
+        Complex num2 = new Complex (0, 0.70710678118);
+        Complex num3 = new Complex (1, 0);
+        Complex num4 = new Complex (0, -1);
+        Complex num5 = new Complex (0, 1);
+        Complex num6 = new Complex(2,0);
+        ComplexVector vector = new ComplexVector();
+        vector.addElement(num1);
+        vector.addElement(num2);
+        ComplexVector vector2 = new ComplexVector();
+        vector2.addElement(num3);
+        vector2.addElement(num4);
+        ComplexVector vector3 = new ComplexVector();
+        vector3.addElement(num5);
+        vector3.addElement(num6);
+        ComplexMatrix matrix1 = new ComplexMatrix();
+        
+        
+        try{
+            matrix1.addElement(vector2);
+            matrix1.addElement(vector3);
+            Complex actual = QuantumSimulator.variance(matrix1, vector);
+            Complex expected = new Complex(0.2499999999953702,0);
+            bool = ComplexCalc.complexEquals(actual,expected);
+            org.junit.Assert.assertEquals(true,bool);
+            
+
+            
+            
+        }
+        catch(Exception e){
+            fail();
+        }
+        
+    }
+    
+    @Test
+    public void dynamicsTest(){
+        boolean bool = false;
+        Complex num1 = new Complex (0, 0);
+        Complex num2 = new Complex (1,0);
+        Complex num3 = new Complex (0.70710678118, 0);
+        Complex num4 = new Complex (-0.70710678118, 0);
+        ComplexVector vector = new ComplexVector();
+        vector.addElement(num2);
+        vector.addElement(num1);
+        ComplexVector vector2 = new ComplexVector();
+        vector2.addElement(num1);
+        vector2.addElement(num2);
+        ComplexVector vector3 = new ComplexVector();
+        vector3.addElement(num3);
+        vector3.addElement(num3);
+        ComplexVector vector4 = new ComplexVector();
+        vector4.addElement(num3);
+        vector4.addElement(num4);
+        ComplexMatrix matrix1 = new ComplexMatrix();
+        ComplexMatrix matrix2 = new ComplexMatrix();
+        
+        try{
+            matrix1.addElement(vector2);
+            matrix1.addElement(vector);
+            matrix2.addElement(vector3);
+            matrix2.addElement(vector4);
+            ArrayList<ComplexMatrix> arrM = new ArrayList<>();
+            arrM.add(matrix1);
+            arrM.add(matrix2);
+            ComplexVector actual = QuantumSimulator.dynamics(arrM, vector);
+            ComplexVector expected= new ComplexVector();
+            expected.addElement(num3);
+            expected.addElement(num4);
+            bool = ComplexCalc.vectorEquals(actual, expected);
+            org.junit.Assert.assertEquals(true,bool);
+
+            
+        }
+        catch(Exception e){
+            fail();
+        }
+    }
 }
